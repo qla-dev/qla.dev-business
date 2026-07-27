@@ -475,7 +475,7 @@ function App() {
           <div className="hero-grid">
             <div className="hero-copy">
               <span className="eyebrow"><span /> Novi poslovni ekosistem iz qla.dev</span>
-              <h1>Poslovne mobilne aplikacije koje rade kao <em>jedan tim.</em></h1>
+              <h1><span className="hero-title-nowrap">Poslovne aplikacije</span> koje rade kao <em>jedan tim.</em></h1>
               <p>
                 qla.dev Business okuplja specijalizirane mobilne aplikacije za svakodnevni rad firme.
                 Svaki modul rješava jedan posao odlično, a zajedno stvaraju povezanu cjelinu.
