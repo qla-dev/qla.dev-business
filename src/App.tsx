@@ -156,7 +156,7 @@ function ShowcaseScreen({ type }: { type: string }) {
           <div className="showcase-detail-title">
             <span>Odobreno</span>
             <h4>Sarajevo → Mostar</h4>
-            <small>18. juli — 20. juli 2026.</small>
+            <small>18. juli do 20. juli 2026.</small>
           </div>
           <div className="mini-route-map">
             <i className="route-road route-road-one" />
@@ -475,7 +475,7 @@ function App() {
           <div className="hero-grid">
             <div className="hero-copy">
               <span className="eyebrow"><span /> Novi poslovni ekosistem iz qla.dev</span>
-              <h1>Poslovni alati koji rade kao <em>jedan tim.</em></h1>
+              <h1>Poslovne mobilne aplikacije koje rade kao <em>jedan tim.</em></h1>
               <p>
                 qla.dev Business okuplja specijalizirane mobilne aplikacije za svakodnevni rad firme.
                 Svaki modul rješava jedan posao odlično, a zajedno stvaraju povezanu cjelinu.
@@ -620,7 +620,7 @@ function App() {
             <span className="kicker">Aplikacija u svakodnevnom radu</span>
             <h2>Više od digitalnog obrasca. <em>Cijeli tok službenog puta.</em></h2>
             <p>
-              Prikazi su izvedeni iz stvarnih ekrana aplikacije — od prvog naloga i računa do
+              Prikazi su izvedeni iz stvarnih ekrana aplikacije, od prvog naloga i računa do
               konačnog obračuna i pregleda potrošnje.
             </p>
           </div>
