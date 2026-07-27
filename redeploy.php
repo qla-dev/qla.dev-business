@@ -102,10 +102,50 @@ $run = static function (string $command, string $cwd, callable $write): int {
     return is_int($exitCode) && $exitCode >= 0 ? $exitCode : $closeCode;
 };
 
+$npmCandidates = [
+    '/opt/cpanel/ea-nodejs24/bin/npm',
+    '/opt/cpanel/ea-nodejs22/bin/npm',
+    '/opt/cpanel/ea-nodejs20/bin/npm',
+    '/opt/alt/alt-nodejs24/root/usr/bin/npm',
+    '/opt/alt/alt-nodejs22/root/usr/bin/npm',
+    '/opt/alt/alt-nodejs20/root/usr/bin/npm',
+    '/usr/local/bin/npm',
+    '/usr/bin/npm',
+];
+
+foreach ([
+    '/opt/cpanel/ea-nodejs*/bin/npm',
+    '/opt/alt/alt-nodejs*/root/usr/bin/npm',
+] as $pattern) {
+    foreach (glob($pattern) ?: [] as $candidate) {
+        $npmCandidates[] = $candidate;
+    }
+}
+
+$npm = null;
+
+foreach (array_unique($npmCandidates) as $candidate) {
+    if (is_file($candidate) && is_executable($candidate)) {
+        $npm = $candidate;
+        break;
+    }
+}
+
+if ($npm === null) {
+    $write("Could not find npm on this server.\n");
+    $write("Enable Node.js 20 or newer in cPanel, then run redeploy again.\n");
+    exit(127);
+}
+
+$nodeBinDir = dirname($npm);
+$currentPath = (string) (getenv('PATH') ?: '/usr/local/bin:/usr/bin:/bin');
+putenv('PATH='.$nodeBinDir.PATH_SEPARATOR.$currentPath);
+$npmCommand = escapeshellarg($npm);
+
 $commands = [
     ['label' => 'Pulling latest code', 'command' => 'git pull --ff-only'],
-    ['label' => 'Installing dependencies', 'command' => 'npm ci --no-audit --no-fund'],
-    ['label' => 'Building production site', 'command' => 'npm run build'],
+    ['label' => 'Installing dependencies', 'command' => $npmCommand.' ci --no-audit --no-fund'],
+    ['label' => 'Building production site', 'command' => $npmCommand.' run build'],
 ];
 
 $startedAt = time();
