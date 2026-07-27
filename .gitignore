@@ -1,0 +1,8 @@
+node_modules/
+dist/
+*.log
+*-check*.png
+*.tsbuildinfo
+.env
+.env.*
+.redeploy-password

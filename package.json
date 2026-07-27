@@ -1,0 +1,28 @@
+{
+  "name": "qla-dev-business",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "npm run prepare-assets && vite",
+    "prepare-assets": "node scripts/prepare-logo.mjs && node scripts/prepare-module-icons.mjs",
+    "build": "npm run prepare-assets && tsc -b && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "^5.1.2",
+    "lucide-react": "^0.563.0",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "vite": "^7.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.14.0",
+    "@types/pngjs": "^6.0.5",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "pngjs": "^7.0.0",
+    "typescript": "~5.8.2"
+  }
+}
