@@ -8,12 +8,6 @@ ini_set('output_buffering', '0');
 ini_set('zlib.output_compression', '0');
 
 $baseDir = __DIR__;
-$passwordFile = $baseDir.DIRECTORY_SEPARATOR.'.redeploy-password';
-$expectedPassword = trim((string) (getenv('BUSINESS_REDEPLOY_PASSWORD') ?: ''));
-
-if ($expectedPassword === '' && is_file($passwordFile)) {
-    $expectedPassword = trim((string) file_get_contents($passwordFile));
-}
 
 if (PHP_SAPI !== 'cli') {
     header('Content-Type: text/plain; charset=utf-8');
@@ -21,16 +15,9 @@ if (PHP_SAPI !== 'cli') {
     header('X-Content-Type-Options: nosniff');
     header('X-Accel-Buffering: no');
 
-    if ($expectedPassword === '') {
-        http_response_code(503);
-        echo "Redeploy is not configured.\n";
-        echo "Set BUSINESS_REDEPLOY_PASSWORD or create .redeploy-password in the project root.\n";
-        exit;
-    }
-
     $providedPassword = (string) ($_SERVER['PHP_AUTH_PW'] ?? '');
 
-    if (!hash_equals($expectedPassword, $providedPassword)) {
+    if (!hash_equals('1234', $providedPassword)) {
         header('WWW-Authenticate: Basic realm="qla.dev Business redeploy"');
         http_response_code(401);
         echo "Authentication required.\n";
