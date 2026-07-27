@@ -279,11 +279,14 @@ function ShowcaseScreen({ type }: { type: string }) {
 function useTheme() {
   const [theme, setTheme] = useState<Theme>(() => {
     const saved = localStorage.getItem('qla-business-theme');
-    return saved === 'dark' ? 'dark' : 'light';
+    return saved === 'light' ? 'light' : 'dark';
   });
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
+    document
+      .querySelector('meta[name="theme-color"]')
+      ?.setAttribute('content', theme === 'dark' ? '#0a0d12' : '#ffffff');
     localStorage.setItem('qla-business-theme', theme);
   }, [theme]);
 
@@ -475,7 +478,7 @@ function App() {
           <div className="hero-grid">
             <div className="hero-copy">
               <span className="eyebrow"><span /> Novi poslovni ekosistem iz qla.dev</span>
-              <h1><span className="hero-title-nowrap">Poslovne aplikacije</span> koje rade kao <em>jedan tim.</em></h1>
+              <h1><span className="hero-title-nowrap">Business apps</span> koje rade kao <em>jedan tim.</em></h1>
               <p>
                 qla.dev Business okuplja specijalizirane mobilne aplikacije za svakodnevni rad firme.
                 Svaki modul rješava jedan posao odlično, a zajedno stvaraju povezanu cjelinu.
@@ -732,7 +735,7 @@ function App() {
           <img className="brand-light" src="/assets/qla-business.png" alt="qla.dev Business" />
           <img className="brand-dark" src="/assets/qla-business-dark.png" alt="" />
         </a>
-        <p>Poslovne aplikacije koje rade zajedno.</p>
+        <p>Business apps koje rade zajedno.</p>
         <div>
           <a href="https://qla.dev">qla.dev</a>
           <a href="mailto:info@qla.dev">Kontakt</a>

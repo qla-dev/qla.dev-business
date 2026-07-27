@@ -1,15 +1,61 @@
 <!doctype html>
-<html lang="bs">
+<html lang="bs" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="theme-color" content="#0a0d12" />
+    <script>
+      try {
+        const savedTheme = localStorage.getItem('qla-business-theme');
+        const initialTheme = savedTheme === 'light' ? 'light' : 'dark';
+        document.documentElement.dataset.theme = initialTheme;
+        document.querySelector('meta[name="theme-color"]').content =
+          initialTheme === 'dark' ? '#0a0d12' : '#ffffff';
+      } catch {}
+    </script>
     <meta
       name="description"
       content="qla.dev Business je ekosistem poslovnih mobilnih aplikacija za jednostavniji, brži i povezaniji rad."
     />
+    <link rel="canonical" href="https://business.qla.dev/" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="bs_BA" />
+    <meta property="og:site_name" content="qla.dev Business" />
+    <meta property="og:url" content="https://business.qla.dev/" />
+    <meta
+      property="og:title"
+      content="qla.dev Business | Mobilne aplikacije za efikasnije upravljanje firmom"
+    />
+    <meta
+      property="og:description"
+      content="qla.dev Business je ekosistem poslovnih mobilnih aplikacija za jednostavniji, brži i povezaniji rad."
+    />
+    <meta property="og:image" content="https://business.qla.dev/og-business.png" />
+    <meta property="og:image:width" content="1731" />
+    <meta property="og:image:height" content="909" />
+    <meta
+      property="og:image:alt"
+      content="qla.dev Business — Mobilne aplikacije za efikasnije upravljanje firmom"
+    />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="qla.dev Business | Mobilne aplikacije za efikasnije upravljanje firmom"
+    />
+    <meta
+      name="twitter:description"
+      content="qla.dev Business je ekosistem poslovnih mobilnih aplikacija za jednostavniji, brži i povezaniji rad."
+    />
+    <meta name="twitter:image" content="https://business.qla.dev/og-business.png" />
+    <meta
+      name="twitter:image:alt"
+      content="qla.dev Business — Mobilne aplikacije za efikasnije upravljanje firmom"
+    />
+
     <link rel="icon" type="image/png" href="/favicon.png" />
-    <title>Mobilne aplikacije za efikasnije upravljanje firmom</title>
+    <title>qla.dev Business | Mobilne aplikacije za efikasnije upravljanje firmom</title>
   </head>
   <body>
     <div id="root"></div>
