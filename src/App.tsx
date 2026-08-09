@@ -27,6 +27,49 @@ import {
 } from 'lucide-react';
 
 type Theme = 'light' | 'dark';
+type InfoPage = 'privacy' | 'terms' | 'cookies' | 'help';
+
+const INFO_PAGES: Record<InfoPage, { title: string; intro: string; sections: Array<[string, string]> }> = {
+  privacy: {
+    title: 'Politika privatnosti',
+    intro: 'Kako Putni nalozi obrađuju i štite podatke koje unesete.',
+    sections: [
+      ['Podaci koje obrađujemo', 'Obrađujemo podatke računa i putnih naloga koje unesete: kontakt podatke, podatke organizacije, rute, datume putovanja, troškove, slike računa i podatke potrebne za prijavu.'],
+      ['Svrha obrade', 'Podatke koristimo za kreiranje, obračun, dijeljenje i izvoz putnih naloga, sigurnost usluge i korisničku podršku. Slike računa mogu se poslati AI servisu samo kada pokrenete očitavanje.'],
+      ['Čuvanje i dijeljenje', 'Podatke ne prodajemo. Dijelimo ih samo s pružaocima infrastrukture i obrade potrebnima za rad usluge, s vašom organizacijom kada koristite timski prostor ili kada to zahtijeva zakon.'],
+      ['Vaša prava', 'Možete zatražiti pristup, ispravku, brisanje ili ograničenje obrade podataka kada je to primjenjivo.'],
+    ],
+  },
+  terms: {
+    title: 'Uslovi korištenja',
+    intro: 'Pravila korištenja aplikacije Putni nalozi.',
+    sections: [
+      ['Namjena usluge', 'Putni nalozi su poslovni alat za pripremu, evidenciju i obračun putnih naloga i troškova. Korisnik je odgovoran za tačnost unesenih podataka i potrebna odobrenja unutar organizacije.'],
+      ['AI očitavanje', 'AI očitavanje je pomoćna funkcija. Prije slanja ili izvoza pregledajte očitane datume, iznose, kategorije i obračune. Aplikacija ne zamjenjuje računovodstvenu, poresku ni pravnu provjeru.'],
+      ['Korisnički račun', 'Čuvajte pristupne podatke i ne dijelite račun s neovlaštenim osobama.'],
+      ['Dostupnost', 'Uslugu možemo mijenjati, održavati ili privremeno ograničiti radi sigurnosti i unapređenja.'],
+    ],
+  },
+  cookies: {
+    title: 'Politika kolačića',
+    intro: 'Kako koristimo kolačiće na qla.dev Business web stranici.',
+    sections: [
+      ['Neophodni kolačići', 'Koristimo neophodne kolačiće i slične tehnologije za sigurnost, održavanje sesije i osnovni rad web stranice.'],
+      ['Opcionalni kolačići', 'Trenutno ne koristimo kolačiće za oglašavanje. Ako uvedemo opcionalne analitičke kolačiće, zatražit ćemo odgovarajući pristanak prije njihovog postavljanja.'],
+      ['Upravljanje kolačićima', 'Kolačiće možete obrisati ili blokirati u postavkama preglednika. Blokiranje neophodnih kolačića može uticati na rad stranice.'],
+    ],
+  },
+  help: {
+    title: 'Pravilnik i pomoć',
+    intro: 'Kratko uputstvo za svakodnevni rad u Putnim nalozima.',
+    sections: [
+      ['1. Kreirajte putni nalog', 'Odaberite rutu i način putovanja, pa provjerite datum i vrijeme polaska i povratka. Dnevnica se računa prema trajanju i udaljenosti.'],
+      ['2. Dodajte troškove i račune', 'Otvorite Dodaj trošak, fotografišite račun ili ga odaberite iz galerije, zatim pregledajte podatke koje je AI očitao prije dodavanja.'],
+      ['3. Privatno vozilo', 'U Transportu odaberite privatno vozilo. U stavci Tura provjerite kilometražu i po potrebi izmijenite cijenu BMB95. Naknada je km × (BMB95 × 0,15).'],
+      ['4. Pregled i slanje', 'Provjerite dnevnice, troškove, akontaciju i iznos za isplatu prije slanja naloga na odobrenje.'],
+    ],
+  },
+};
 
 const modules = [
   {
@@ -403,6 +446,35 @@ function PhoneScreen({ active }: { active: number }) {
   );
 }
 
+function InformationPage({ page, theme, setTheme }: { page: InfoPage; theme: Theme; setTheme: (theme: Theme) => void }) {
+  const content = INFO_PAGES[page];
+  return <div className="site-shell information-shell">
+    <header className="site-header information-header">
+      <a className="brand" href="/" aria-label="qla.dev Business početna">
+        <img className="brand-light" src="/assets/qla-business.png" alt="qla.dev Business" />
+        <img className="brand-dark" src="/assets/qla-business-dark.png" alt="" />
+      </a>
+      <div className="header-actions">
+        <button className="theme-toggle" type="button" onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')} aria-label="Promijeni temu">
+          {theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
+        </button>
+      </div>
+    </header>
+    <main className="information-main">
+      <span className="kicker">Putni nalozi · qla.dev Business</span>
+      <h1>{content.title}</h1>
+      <p className="information-intro">{content.intro}</p>
+      <p className="information-updated">Posljednje ažuriranje: 9. august 2026.</p>
+      <div className="information-card">
+        {content.sections.map(([title, text]) => <section key={title}><h2>{title}</h2><p>{text}</p></section>)}
+      </div>
+    </main>
+    <footer className="information-footer">
+      <a href="/putni-nalozi/privacy">Privatnost</a><a href="/putni-nalozi/terms">Uslovi</a><a href="/putni-nalozi/cookies">Kolačići</a><a href="/putni-nalozi/help">Pravilnik i pomoć</a>
+    </footer>
+  </div>;
+}
+
 function App() {
   const { theme, setTheme } = useTheme();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -416,6 +488,9 @@ function App() {
     );
     return () => window.clearInterval(timer);
   }, []);
+
+  const page = window.location.pathname.match(/^\/putni-nalozi\/(privacy|terms|cookies|help)\/?$/)?.[1] as InfoPage | undefined;
+  if (page) return <InformationPage page={page} theme={theme} setTheme={setTheme} />;
 
   useEffect(() => {
     const timer = window.setInterval(
@@ -739,6 +814,10 @@ function App() {
         <div>
           <a href="https://qla.dev">qla.dev</a>
           <a href="mailto:info@qla.dev">Kontakt</a>
+          <a href="/putni-nalozi/privacy">Privatnost</a>
+          <a href="/putni-nalozi/terms">Uslovi</a>
+          <a href="/putni-nalozi/cookies">Kolačići</a>
+          <a href="/putni-nalozi/help">Pomoć</a>
           <span>© {new Date().getFullYear()} qla.dev</span>
         </div>
       </footer>
