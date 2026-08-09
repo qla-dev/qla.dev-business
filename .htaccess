@@ -14,6 +14,9 @@ DirectoryIndex dist/index.html
     # Prevent repeated rewriting after a request has entered dist.
     RewriteRule ^dist(?:/|$) - [L]
 
+    # Serve packed route entries with their own HTML and metadata.
+    RewriteRule ^putni-nalozi/(privacy|terms|cookies|help)/?$ dist/putni-nalozi/$1/index.html [L]
+
     # Serve generated files and directories from dist.
     RewriteCond %{DOCUMENT_ROOT}/dist/$1 -f [OR]
     RewriteCond %{DOCUMENT_ROOT}/dist/$1 -d

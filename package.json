@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "npm run prepare-assets && vite",
     "prepare-assets": "node scripts/prepare-logo.mjs && node scripts/prepare-module-icons.mjs",
-    "build": "npm run prepare-assets && tsc -b && vite build",
+    "build": "npm run prepare-assets && tsc -b && vite build && node scripts/generate-route-pages.mjs",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit"
   },
