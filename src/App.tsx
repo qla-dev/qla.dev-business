@@ -470,7 +470,7 @@ function InformationPage({ page, theme, setTheme }: { page: InfoPage; theme: The
       </div>
     </main>
     <footer className="information-footer">
-      <a href="/putni-nalozi/privacy">Privatnost</a><a href="/putni-nalozi/terms">Uslovi</a><a href="/putni-nalozi/cookies">Kolačići</a><a href="/putni-nalozi/help">Pravilnik i pomoć</a>
+      <a href="/privacy">Privatnost</a><a href="/terms">Uslovi</a><a href="/cookies">Kolačići</a><a href="/help">Pravilnik i pomoć</a>
     </footer>
   </div>;
 }
@@ -489,7 +489,7 @@ function App() {
     return () => window.clearInterval(timer);
   }, []);
 
-  const page = window.location.pathname.match(/^\/putni-nalozi\/(privacy|terms|cookies|help)\/?$/)?.[1] as InfoPage | undefined;
+  const page = window.location.pathname.match(/^\/(privacy|terms|cookies|help)\/?$/)?.[1] as InfoPage | undefined;
   if (page) return <InformationPage page={page} theme={theme} setTheme={setTheme} />;
 
   useEffect(() => {
@@ -814,10 +814,10 @@ function App() {
         <div>
           <a href="https://qla.dev">qla.dev</a>
           <a href="mailto:info@qla.dev">Kontakt</a>
-          <a href="/putni-nalozi/privacy">Privatnost</a>
-          <a href="/putni-nalozi/terms">Uslovi</a>
-          <a href="/putni-nalozi/cookies">Kolačići</a>
-          <a href="/putni-nalozi/help">Pomoć</a>
+          <a href="/privacy">Privatnost</a>
+          <a href="/terms">Uslovi</a>
+          <a href="/cookies">Kolačići</a>
+          <a href="/help">Pomoć</a>
           <span>© {new Date().getFullYear()} qla.dev</span>
         </div>
       </footer>

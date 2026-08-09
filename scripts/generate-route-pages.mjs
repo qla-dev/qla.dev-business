@@ -17,7 +17,7 @@ const pages = [
 const escapeHtml = value => value.replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
 
 const pageHtml = (template, slug, title, description) => {
-  const url = `${origin}/putni-nalozi/${slug}`;
+  const url = `${origin}/${slug}`;
   return template
     .replace(/<title>[^<]*<\/title>/i, `<title>${escapeHtml(title)}</title>`)
     .replace(/<meta\s+name="description"\s+content="[^"]*"\s*\/>/i, `<meta name="description" content="${escapeHtml(description)}" />`)
@@ -31,7 +31,7 @@ const pageHtml = (template, slug, title, description) => {
 
 const template = await readFile(templatePath, 'utf8');
 await Promise.all(pages.map(async ([slug, title, description]) => {
-  const outputDir = path.join(distDir, 'putni-nalozi', slug);
+  const outputDir = path.join(distDir, slug);
   await mkdir(outputDir, { recursive: true });
   await writeFile(path.join(outputDir, 'index.html'), pageHtml(template, slug, title, description), 'utf8');
 }));
