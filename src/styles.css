@@ -177,20 +177,26 @@ button {
 }
 
 .theme-toggle,
-.menu-toggle {
+.menu-toggle,
+.store-download-header {
   width: 40px;
   height: 40px;
-  display: grid;
-  place-items: center;
   border: 1px solid var(--line);
   border-radius: 12px;
+}
+
+.theme-toggle,
+.menu-toggle {
+  display: grid;
+  place-items: center;
   background: var(--surface);
   cursor: pointer;
   transition: transform .2s ease, border-color .2s ease;
 }
 
 .theme-toggle:hover,
-.menu-toggle:hover {
+.menu-toggle:hover,
+.store-download-header:hover {
   transform: translateY(-2px);
   border-color: var(--line-strong);
 }
@@ -223,7 +229,7 @@ button {
   justify-content: center;
   color: #fff;
   background: #05070a;
-  transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
+  transition: transform .2s ease, background .2s ease, border-color .2s ease, box-shadow .2s ease;
 }
 
 .store-download:hover {
@@ -237,10 +243,9 @@ button {
 }
 
 .store-download-header {
-  height: 40px;
+  width: auto;
   gap: 7px;
   padding: 0 13px;
-  border-radius: 12px;
   font-size: 11px;
 }
 
