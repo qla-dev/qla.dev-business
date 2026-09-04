@@ -245,25 +245,22 @@ function ShowcaseScreen({ type }: { type: string }) {
         <div className="showcase-screen-scroll">
           <div className="showcase-detail-title">
             <span>Odobreno</span>
-            <h4>Sarajevo → Mostar</h4>
-            <small>18. juli do 20. juli 2026.</small>
+            <h4>Sarajevo – Mostar</h4>
+            <small>18. jul · 07:00 — 20. jul · 18:00</small>
           </div>
-          <div className="mini-route-map">
-            <i className="route-road route-road-one" />
-            <i className="route-road route-road-two" />
-            <span className="route-point route-start" />
-            <span className="route-point route-end" />
-            <b>144 km</b>
+          <div className="native-route-card">
+            <div><i /><span><small>POLAZIŠTE</small><b>Sarajevo</b></span><em>18. jul · 07:00</em></div>
+            <div><i /><span><small>DESTINACIJA</small><b>Mostar</b></span><em>20. jul · 18:00</em></div>
           </div>
           <div className="mini-total-card">
-            <span><small>Ukupno</small><b>486,40 KM</b></span>
+            <span><small>ZA ISPLATU</small><b>486,40 KM</b></span>
             <CircleDollarSign size={21} />
           </div>
-          <div className="mini-section-label">Obračun naloga</div>
+          <div className="mini-section-label">OBRAČUN NALOGA</div>
           <div className="mini-detail-list">
             <span><i>Dnevnice</i><b>150,00 KM</b></span>
-            <span><i>Prijevoz</i><b>112,40 KM</b></span>
-            <span><i>Troškovi (3)</i><b>224,00 KM</b></span>
+            <span><i>Kilometraža · 144 km</i><b>112,40 KM</b></span>
+            <span><i>Troškovi · 3 računa</i><b>224,00 KM</b></span>
           </div>
         </div>
         {bottomTabs}
@@ -280,22 +277,15 @@ function ShowcaseScreen({ type }: { type: string }) {
           <span />
         </div>
         <div className="showcase-screen-scroll scanner-phone-screen">
-          <div className="mini-camera">
-            <span><Camera size={27} /></span>
-            <b>Skenirajte račun</b>
-            <small>Fotografišite ili odaberite fotografiju</small>
-            <i className="camera-corner corner-one" />
-            <i className="camera-corner corner-two" />
-            <i className="camera-corner corner-three" />
-            <i className="camera-corner corner-four" />
+          <div className="native-scanner-intro">
+            <span><Sparkles size={27} /></span>
+            <b>Skenirajte račun ili kartu sa AI</b>
+            <small>Prepoznajemo trgovca, datum, iznos, porez i kategoriju troška.</small>
           </div>
-          <div className="mini-scan-result">
-            <div><ReceiptText size={17} /><b>Račun prepoznat</b><em>98%</em></div>
-            <span><small>Prodajno mjesto</small><b>Hotel Central</b></span>
-            <span><small>Iznos</small><b>184,00 KM</b></span>
-            <span><small>Kategorija</small><b>Smještaj</b></span>
+          <div className="native-scanner-actions">
+            <div><Camera size={14} /><b>Otvori kameru</b></div>
+            <div><ReceiptText size={14} /><b>Odaberi iz galerije</b></div>
           </div>
-          <div className="mini-primary-button"><Check size={13} /> Dodaj u nalog</div>
         </div>
         {bottomTabs}
       </>
@@ -312,12 +302,13 @@ function ShowcaseScreen({ type }: { type: string }) {
         </div>
         <div className="showcase-screen-scroll">
           <div className="mini-wallet">
-            <span><small>Ukupna vrijednost naloga</small><b>2.486,40 KM</b></span>
+            <span><small>UKUPNO ISPLAĆENO</small><b>2.486,40 KM</b></span>
             <WalletCards size={22} />
-            <em>12 putnih naloga</em>
+            <em>8 isplaćenih naloga</em>
           </div>
           <div className="mini-metrics">
-            <span><small>Odobreno</small><b>8</b></span>
+            <span><small>Ukupno</small><b>12</b></span>
+            <span><small>Isplaćeno</small><b>8</b></span>
             <span><small>Čeka pregled</small><b>3</b></span>
           </div>
           <div className="mini-section-label">Troškovi po kategoriji</div>
@@ -345,24 +336,64 @@ function ShowcaseScreen({ type }: { type: string }) {
         <Search size={14} />
       </div>
       <div className="showcase-screen-scroll">
-        <div className="mini-filter"><b>Svi</b><span>Nacrti</span><span>Poslani</span><span>Odobreni</span></div>
+        <div className="mini-filter"><b>Svi</b><span>Nacrt</span><span>Poslano</span><span>Odobreno</span></div>
         <div className="mini-order-list">
           {[
-            ['PN-2026-031', 'Sarajevo → Mostar', 'Odobreno', '486,40 KM'],
-            ['PN-2026-030', 'Sarajevo → Zagreb', 'Poslano', '712,20 KM'],
-            ['PN-2026-029', 'Tuzla → Sarajevo', 'Nacrt', '168,00 KM'],
-          ].map(([number, route, status, total]) => (
+            ['PN-2026-031', '18 JUL · 59 H', 'Sarajevo – Mostar', 'Sastanak sa klijentom', 'Odobreno', '486,40 KM'],
+            ['PN-2026-030', '12 JUL · 36 H', 'Sarajevo – Zagreb', 'Poslovna konferencija', 'Poslano', '712,20 KM'],
+            ['PN-2026-029', '08 JUL · 12 H', 'Tuzla – Sarajevo', 'Obuka zaposlenika', 'Nacrt', '168,00 KM'],
+          ].map(([number, date, route, purpose, status, total]) => (
             <div className="mini-order" key={number}>
-              <span><Plane size={13} /></span>
-              <div><b>{number}</b><small>{route}</small><em>{status}</em></div>
-              <strong>{total}</strong>
+              <div className="mini-order-top"><span><b>{number}</b><small>{date}</small></span><em>{status}</em></div>
+              <strong>{route}</strong>
+              <small className="mini-order-purpose">✎ {purpose}</small>
+              <div className="mini-order-total"><span><small>ZA ISPLATU</small><b>{total}</b></span><i>Ivan Kovačić ›</i></div>
             </div>
           ))}
         </div>
-        <div className="mini-create-order">+ Novi putni nalog</div>
       </div>
       {bottomTabs}
     </>
+  );
+}
+
+function FloatingReceipt({ className, vendor, type, amount }: { className: string; vendor: string; type: string; amount: string }) {
+  return (
+    <div className={`floating-receipt ${className}`} aria-hidden="true">
+      <div className="receipt-brand"><span>{vendor.charAt(0)}</span><b>{vendor}</b></div>
+      <i />
+      <strong>{type}</strong>
+      <small>BROJ RAČUNA · 04.09.2026.</small>
+      <div className="receipt-lines"><span /><span /><span /></div>
+      <i />
+      <div className="receipt-amount"><small>UKUPNO</small><b>{amount}</b></div>
+      <div className="receipt-barcode" />
+    </div>
+  );
+}
+
+function NativeCalculationPhone() {
+  return (
+    <div className="calculation-phone" aria-label="Prikaz automatskog obračuna putnog naloga">
+      <div className="calculation-phone-island" />
+      <div className="calculation-status"><b>9:41</b><span>● ●</span></div>
+      <div className="calculation-header"><ChevronLeft size={17} /><b>PN-2026-041</b><span>•••</span></div>
+      <div className="calculation-content">
+        <div className="calculation-route">
+          <span><i /><small>POLAZIŠTE</small><b>Sarajevo</b><em>04. sep · 07:00</em></span>
+          <span><i /><small>DESTINACIJA</small><b>Zagreb</b><em>06. sep · 18:00</em></span>
+        </div>
+        <div className="calculation-chips"><span>59 sati</span><span>812 km</span><span>Privatno vozilo</span></div>
+        <div className="calculation-card">
+          <div><span><Calculator size={15} /><b>Automatski obračun</b></span><em><Sparkles size={12} /> AI spremno</em></div>
+          <p><span>Dnevnice · Hrvatska</span><b>180,00 KM</b></p>
+          <p><span>Kilometraža · BMB95</span><b>303,10 KM</b></p>
+          <p><span>Troškovi · 4 računa</span><b>364,14 KM</b></p>
+          <p className="calculation-total"><span>ZA ISPLATU</span><b>847,24 KM</b></p>
+        </div>
+        <div className="calculation-scan"><ScanLine size={15} /><span><b>4 dokumenta obrađena</b><small>Iznosi i kategorije su provjereni</small></span><Check size={14} /></div>
+      </div>
+    </div>
   );
 }
 
@@ -700,30 +731,13 @@ function App() {
             </p>
           </div>
 
-          <div className="product-proof-grid reveal" aria-label="Najvažnije mogućnosti Putnih naloga">
-            {[
-              ['01', 'Dnevnice bez ručnog računanja', 'Vrijeme, države, obroci i noćenja ulaze u obračun automatski.'],
-              ['02', 'Račun postaje spreman trošak', 'AI prepoznaje iznos, valutu, PDV, stavke, datum i prodajno mjesto.'],
-              ['03', 'Kilometri koji imaju pokriće', 'Ruta, privatno ili službeno vozilo i naknada ostaju u istom nalogu.'],
-              ['04', 'Izvoz bez ponovnog prekucavanja', 'PDF i strukturirani formati prenose završen nalog u postojeći poslovni tok.'],
-            ].map(([number, title, text]) => (
-              <article key={number}>
-                <span>{number}</span>
-                <h3>{title}</h3>
-                <p>{text}</p>
-              </article>
-            ))}
-          </div>
-
           <div className="feature-stage">
             <div className="feature-list">
               {[
-                [MapPinned, 'Ruta i kilometraža', 'Unesite polazište, usputne stanice i odredište. Aplikacija prikazuje put na karti, računa kilometre i podržava povratnu vožnju.'],
-                [Calculator, 'Pametan obračun dnevnica', 'Dnevnica se računa prema stvarnom trajanju i državama na ruti, uz umanjenja za obroke, hotel ili osiguran smještaj.'],
-                [ScanLine, 'AI obrada dokumentacije', 'Fotografišite račun, avionsku ili prijevoznu kartu. AI čita ključne podatke, a vi ih pregledate prije spremanja.'],
-                [ReceiptText, 'Troškovi pod kontrolom', 'Hrana, gorivo, parking, smještaj i ostali troškovi imaju kategoriju, način plaćanja, valutu i fotografiju dokumenta.'],
-                [CarFront, 'Privatno i službeno vozilo', 'Vodite vlastita i zajednička vozila te automatski obračunajte naknadu za privatno vozilo prema kilometrima i cijeni goriva.'],
-                [UsersRound, 'Firma, članovi i statusi', 'Vlasnik prati naloge članova, dijeli vozila i AI kredite, a svaki nalog prolazi jasan tok od nacrta do odobrenja.'],
+                [ScanLine, 'AI obrada računa', 'Kamera ili fotografija pretvaraju račun u strukturirane podatke spremne za provjeru.'],
+                [Plane, 'Cijeli putni nalog', 'Ruta, dnevnice, troškovi, statusi i dokumenti ostaju povezani od početka do kraja.'],
+                [UsersRound, 'Firma i tim', 'Vlasnik vidi članove, njihove naloge i zajedničku AI potrošnju kada je aktivira.'],
+                [FileCheck2, 'Izvoz spreman za posao', 'Završen nalog ide u PDF ili direktno prema poslovnom i računovodstvenom sistemu.'],
               ].map(([Icon, title, description], index) => {
                 const FeatureIcon = Icon as typeof ScanLine;
                 return (
@@ -762,24 +776,38 @@ function App() {
             </div>
           </div>
 
-          <div className="travel-flow reveal" aria-label="Tok digitalnog putnog naloga">
-            <div className="travel-flow-heading">
-              <span className="kicker">Od naloga do knjiženja</span>
-              <h3>Četiri koraka. <em>Nijedna tabela sa strane.</em></h3>
+        </section>
+
+        <section className="automation-section" id="obracun">
+          <div className="automation-layout">
+            <div className="automation-copy reveal">
+              <span className="kicker">Put bez papira</span>
+              <h2>Vi unesete put. <em>Aplikacija složi obračun.</em></h2>
+              <p>
+                Putni nalog nastaje tamo gdje se putovanje stvarno dešava. Ruta, vrijeme, vozilo,
+                dnevnice i računi ulaze u isti tok — bez paralelnih tabela i naknadnog prekucavanja.
+              </p>
+              <div className="automation-points">
+                {[
+                  [MapPinned, 'Ruta računa kilometre', 'Polazište, usputne stanice, odredište i povratak ostaju povezani s vremenom putovanja.'],
+                  [Calculator, 'Dnevnice se obračunavaju same', 'Trajanje, države, obroci i osiguran smještaj odmah mijenjaju konačni obračun.'],
+                  [CarFront, 'Svaki trošak ima kontekst', 'Privatno ili službeno vozilo, gorivo, parking, putarina, smještaj i karte na jednom mjestu.'],
+                ].map(([Icon, title, text]) => {
+                  const PointIcon = Icon as typeof MapPinned;
+                  return <article key={title as string}><span><PointIcon size={19} /></span><div><h3>{title as string}</h3><p>{text as string}</p></div></article>;
+                })}
+              </div>
             </div>
-            <ol>
-              {[
-                ['Planirajte', 'Ruta, svrha, vrijeme, vozilo i akontacija.'],
-                ['Putujte', 'Računi, karte i kilometri dodaju se odmah s telefona.'],
-                ['Provjerite', 'Dnevnice, troškovi i iznos za isplatu složeni su u jednom pregledu.'],
-                ['Izvezite', 'PDF ili format za ERP i evidenciju radnog vremena.'],
-              ].map(([title, text], index) => (
-                <li key={title}>
-                  <span>{String(index + 1).padStart(2, '0')}</span>
-                  <div><b>{title}</b><p>{text}</p></div>
-                </li>
-              ))}
-            </ol>
+
+            <div className="automation-visual reveal">
+              <div className="automation-glow" />
+              <div className="scan-orbit"><ScanLine size={16} /><span>AI obrada dokumenata</span></div>
+              <FloatingReceipt className="receipt-parking" vendor="PARKING" type="PARKING" amount="140,94 KM" />
+              <FloatingReceipt className="receipt-fuel" vendor="ENERGY" type="BMB 95" amount="112,05 KM" />
+              <FloatingReceipt className="receipt-toll" vendor="AUTOCESTE" type="PUTARINA" amount="5,85 KM" />
+              <FloatingReceipt className="receipt-bus" vendor="FLIXBUS" type="AUTOBUSNA KARTA" amount="105,30 KM" />
+              <NativeCalculationPhone />
+            </div>
           </div>
         </section>
 
