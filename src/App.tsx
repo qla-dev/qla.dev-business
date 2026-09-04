@@ -5,7 +5,9 @@ import {
   BarChart3,
   Boxes,
   Building2,
+  Calculator,
   Camera,
+  CarFront,
   Check,
   ChevronLeft,
   CircleDollarSign,
@@ -118,7 +120,7 @@ const modules = [
   {
     name: 'Putni nalozi',
     description: 'Službena putovanja, računi, dnevnice i timska kontrola u jednoj mobilnoj aplikaciji.',
-    status: 'Dostupno u beta verziji',
+    status: 'Dostupno za iOS i Android',
     iconSrc: '/assets/putni-nalozi-icon.png',
     active: true,
   },
@@ -187,6 +189,8 @@ const exportOptions = [
   { name: 'ŠPICA', format: 'CSV', imageSrc: '/assets/export-spica.png' },
   { name: 'OPTION', format: 'CSV', Icon: Building2 },
   { name: 'SKULA', format: 'XLSX', Icon: GraduationCap },
+  { name: 'Infonet', format: 'JSON', Icon: Boxes },
+  { name: 'Dynamics 365', format: 'JSON', Icon: Building2 },
 ];
 
 const appShowcaseViews = [
@@ -687,22 +691,39 @@ function App() {
               </span>
               <h2>
                 <span>Putni nalozi. </span>
-                <em>Od puta do izvještaja, bez papirologije između.</em>
+                <em>Cijeli službeni put stane u telefon.</em>
               </h2>
             </div>
             <p>
-              Kreirajte nalog, vodite rutu i troškove, skenirajte račune uz AI i pratite rad cijelog
-              tima. Aplikacija je napravljena za telefon, jer se službeni put ne vodi iz kancelarije.
+              Od prve rute do konačnog obračuna: aplikacija računa dnevnice i kilometražu, čita račune,
+              provjerava troškove i priprema dokumentaciju za firmu i računovodstvo. Sve dok ste na putu.
             </p>
+          </div>
+
+          <div className="product-proof-grid reveal" aria-label="Najvažnije mogućnosti Putnih naloga">
+            {[
+              ['01', 'Dnevnice bez ručnog računanja', 'Vrijeme, države, obroci i noćenja ulaze u obračun automatski.'],
+              ['02', 'Račun postaje spreman trošak', 'AI prepoznaje iznos, valutu, PDV, stavke, datum i prodajno mjesto.'],
+              ['03', 'Kilometri koji imaju pokriće', 'Ruta, privatno ili službeno vozilo i naknada ostaju u istom nalogu.'],
+              ['04', 'Izvoz bez ponovnog prekucavanja', 'PDF i strukturirani formati prenose završen nalog u postojeći poslovni tok.'],
+            ].map(([number, title, text]) => (
+              <article key={number}>
+                <span>{number}</span>
+                <h3>{title}</h3>
+                <p>{text}</p>
+              </article>
+            ))}
           </div>
 
           <div className="feature-stage">
             <div className="feature-list">
               {[
-                [ScanLine, 'AI obrada računa', 'Kamera ili fotografija pretvaraju račun u strukturirane podatke spremne za provjeru.'],
-                [Plane, 'Cijeli putni nalog', 'Rute, dnevnice, troškovi, statusi i dokumenti ostaju povezani od početka do kraja.'],
-                [UsersRound, 'Firma i tim', 'Vlasnik vidi članove, njihove naloge i zajedničku AI potrošnju kada je aktivira.'],
-                [FileCheck2, 'Izvoz spreman za posao', 'Podatke izvezite u formate koji se lakše nastavljaju kroz administraciju i računovodstvo.'],
+                [MapPinned, 'Ruta i kilometraža', 'Unesite polazište, usputne stanice i odredište. Aplikacija prikazuje put na karti, računa kilometre i podržava povratnu vožnju.'],
+                [Calculator, 'Pametan obračun dnevnica', 'Dnevnica se računa prema stvarnom trajanju i državama na ruti, uz umanjenja za obroke, hotel ili osiguran smještaj.'],
+                [ScanLine, 'AI obrada dokumentacije', 'Fotografišite račun, avionsku ili prijevoznu kartu. AI čita ključne podatke, a vi ih pregledate prije spremanja.'],
+                [ReceiptText, 'Troškovi pod kontrolom', 'Hrana, gorivo, parking, smještaj i ostali troškovi imaju kategoriju, način plaćanja, valutu i fotografiju dokumenta.'],
+                [CarFront, 'Privatno i službeno vozilo', 'Vodite vlastita i zajednička vozila te automatski obračunajte naknadu za privatno vozilo prema kilometrima i cijeni goriva.'],
+                [UsersRound, 'Firma, članovi i statusi', 'Vlasnik prati naloge članova, dijeli vozila i AI kredite, a svaki nalog prolazi jasan tok od nacrta do odobrenja.'],
               ].map(([Icon, title, description], index) => {
                 const FeatureIcon = Icon as typeof ScanLine;
                 return (
@@ -716,8 +737,8 @@ function App() {
             <div className="workflow-card reveal">
               <div className="export-panel">
                 <div className="export-heading">
-                  <span>Izvoz i integracije</span>
-                  <small>Jedan završen nalog, više spremnih formata.</small>
+                  <span>Spremno za računovodstvo</span>
+                  <small>Jedan završen nalog. Sedam načina da nastavi dalje.</small>
                 </div>
                 <div className="export-options">
                   {exportOptions.map(({ Icon, imageSrc, name, format }) => {
@@ -733,8 +754,32 @@ function App() {
                     );
                   })}
                 </div>
+                <div className="export-summary">
+                  <FileCheck2 size={18} />
+                  <p><b>Dokumentacija ostaje uz nalog.</b> Izvoz može uključiti i priložene fotografije računa, spremne za dijeljenje i arhivu.</p>
+                </div>
               </div>
             </div>
+          </div>
+
+          <div className="travel-flow reveal" aria-label="Tok digitalnog putnog naloga">
+            <div className="travel-flow-heading">
+              <span className="kicker">Od naloga do knjiženja</span>
+              <h3>Četiri koraka. <em>Nijedna tabela sa strane.</em></h3>
+            </div>
+            <ol>
+              {[
+                ['Planirajte', 'Ruta, svrha, vrijeme, vozilo i akontacija.'],
+                ['Putujte', 'Računi, karte i kilometri dodaju se odmah s telefona.'],
+                ['Provjerite', 'Dnevnice, troškovi i iznos za isplatu složeni su u jednom pregledu.'],
+                ['Izvezite', 'PDF ili format za ERP i evidenciju radnog vremena.'],
+              ].map(([title, text], index) => (
+                <li key={title}>
+                  <span>{String(index + 1).padStart(2, '0')}</span>
+                  <div><b>{title}</b><p>{text}</p></div>
+                </li>
+              ))}
+            </ol>
           </div>
         </section>
 
@@ -840,13 +885,14 @@ function App() {
         <section className="section final-cta reveal" id="kontakt">
           <ParticleField />
           <div>
-            <span className="kicker">qla.dev Business beta</span>
+            <span className="kicker">Putni nalozi za iOS i Android</span>
             <h2>Počnite s Putnim nalozima.</h2>
-            <p>Uključite svoj tim u razvoj poslovnih alata koji nastaju ovdje, za način na koji firme ovdje rade.</p>
+            <p>Preuzmite aplikaciju, kreirajte prvi nalog i vodite cijeli službeni put bez papira i naknadnog prekucavanja.</p>
           </div>
-          <a className="button button-light" href="mailto:info@qla.dev?subject=qla.dev%20Business%20beta">
-            Zatraži pristup <ArrowRight size={17} />
-          </a>
+          <div className="final-downloads">
+            <StoreDownloadButton platform="ios" variant="hero" />
+            <StoreDownloadButton platform="android" variant="hero" />
+          </div>
         </section>
       </main>
 

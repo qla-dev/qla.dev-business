@@ -227,14 +227,7 @@ button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: #fff;
-  background: #05070a;
   transition: transform .2s ease, background .2s ease, border-color .2s ease, box-shadow .2s ease;
-}
-
-.store-download:hover {
-  transform: translateY(-2px);
-  background: #111722;
 }
 
 .store-download span {
@@ -246,7 +239,13 @@ button {
   width: auto;
   gap: 7px;
   padding: 0 13px;
+  background: var(--surface);
+  color: var(--text);
   font-size: 11px;
+}
+
+.store-download-header:hover {
+  background: var(--surface-raised);
 }
 
 .store-download-header strong {
@@ -258,7 +257,14 @@ button {
   gap: 11px;
   padding: 8px 20px;
   border-radius: 15px;
+  background: #05070a;
+  color: #fff;
   box-shadow: 0 12px 28px rgba(5, 7, 10, .2);
+}
+
+.store-download-hero:hover {
+  transform: translateY(-2px);
+  background: #111722;
 }
 
 .store-download-hero small {
@@ -1065,7 +1071,7 @@ h2 em {
   grid-template-columns: 1.1fr .9fr;
   align-items: end;
   gap: 70px;
-  margin-bottom: 72px;
+  margin-bottom: 48px;
 }
 
 .product-intro h2 {
@@ -1104,6 +1110,46 @@ h2 em {
   display: block;
 }
 
+.product-proof-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin-bottom: 22px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: var(--surface);
+}
+
+.product-proof-grid article {
+  min-width: 0;
+  padding: 25px 23px;
+  border-right: 1px solid var(--line);
+}
+
+.product-proof-grid article:last-child {
+  border-right: 0;
+}
+
+.product-proof-grid article > span {
+  color: var(--blue);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .14em;
+}
+
+.product-proof-grid h3 {
+  margin: 13px 0 8px;
+  font-size: 14px;
+  letter-spacing: -.02em;
+}
+
+.product-proof-grid p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.6;
+}
+
 .app-lockup b {
   font-size: 13px;
 }
@@ -1127,7 +1173,7 @@ h2 em {
 }
 
 .feature-row {
-  min-height: 220px;
+  min-height: 205px;
   padding: 25px;
   border: 0;
   border-radius: 20px;
@@ -1153,7 +1199,7 @@ h2 em {
 .workflow-card {
   position: relative;
   overflow: hidden;
-  min-height: 454px;
+  min-height: 639px;
   padding: 34px;
   border: 1px solid var(--line);
   border-radius: 25px;
@@ -1257,7 +1303,7 @@ h2 em {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 13px 14px;
+  padding: 10px 12px;
   border: 1px solid var(--line);
   border-radius: 14px;
   background: rgba(255, 255, 255, .82);
@@ -1271,8 +1317,8 @@ h2 em {
 }
 
 .export-option > span {
-  width: 34px;
-  height: 34px;
+  width: 32px;
+  height: 32px;
   display: grid;
   place-items: center;
   flex: 0 0 auto;
@@ -1304,6 +1350,91 @@ h2 em {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.export-summary {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 18px;
+  padding: 15px;
+  border-radius: 15px;
+  background: var(--blue-soft);
+  color: var(--blue-deep);
+}
+
+.export-summary svg {
+  flex: 0 0 auto;
+}
+
+.export-summary p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 9px;
+  line-height: 1.55;
+}
+
+.export-summary b {
+  color: var(--text);
+}
+
+.travel-flow {
+  display: grid;
+  grid-template-columns: .72fr 1.28fr;
+  align-items: center;
+  gap: 48px;
+  margin-top: 22px;
+  padding: 34px;
+  border: 1px solid var(--line);
+  border-radius: 25px;
+  background: var(--surface);
+}
+
+.travel-flow-heading h3 {
+  margin: 12px 0 0;
+  font-size: clamp(25px, 3vw, 38px);
+  line-height: 1.08;
+  letter-spacing: -.045em;
+}
+
+.travel-flow-heading em {
+  color: var(--blue);
+  font-style: normal;
+}
+
+.travel-flow ol {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.travel-flow li {
+  display: flex;
+  gap: 12px;
+  min-width: 0;
+  padding: 15px;
+  border-radius: 15px;
+  background: var(--bg-soft);
+}
+
+.travel-flow li > span {
+  color: var(--blue);
+  font-size: 9px;
+  font-weight: 900;
+}
+
+.travel-flow li b {
+  font-size: 11px;
+}
+
+.travel-flow li p {
+  margin: 5px 0 0;
+  color: var(--muted);
+  font-size: 9px;
+  line-height: 1.5;
 }
 
 .export-option b {
@@ -2148,6 +2279,12 @@ h2 em {
   color: #aab5c5;
 }
 
+.final-downloads {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 10px;
+}
+
 .button-light {
   flex: 0 0 auto;
   background: #fff;
@@ -2275,8 +2412,34 @@ footer a:hover {
     gap: 22px;
   }
 
+  .product-proof-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .product-proof-grid article:nth-child(2) {
+    border-right: 0;
+  }
+
+  .product-proof-grid article:nth-child(-n + 2) {
+    border-bottom: 1px solid var(--line);
+  }
+
   .feature-stage {
     grid-template-columns: 1fr;
+  }
+
+  .workflow-card {
+    min-height: auto;
+  }
+
+  .export-options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .travel-flow {
+    grid-template-columns: 1fr;
+    gap: 24px;
   }
 
   .product-showcase-layout {
@@ -2438,6 +2601,22 @@ footer a:hover {
     grid-template-columns: 1fr;
   }
 
+  .product-proof-grid,
+  .export-options,
+  .travel-flow ol {
+    grid-template-columns: 1fr;
+  }
+
+  .product-proof-grid article,
+  .product-proof-grid article:nth-child(2) {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .product-proof-grid article:last-child {
+    border-bottom: 0;
+  }
+
   .module-card {
     min-height: 270px;
   }
@@ -2500,6 +2679,10 @@ footer a:hover {
     padding: 28px 22px;
   }
 
+  .travel-flow {
+    padding: 27px 22px;
+  }
+
   .export-heading {
     gap: 7px;
   }
@@ -2526,6 +2709,12 @@ footer a:hover {
 
   .button-light {
     width: 100%;
+  }
+
+  .final-downloads {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   footer {
