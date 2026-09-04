@@ -211,10 +211,71 @@ button {
   font-weight: 800;
 }
 
+.header-downloads {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.store-download {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  background: #05070a;
+  transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
+}
+
+.store-download:hover {
+  transform: translateY(-2px);
+  background: #111722;
+}
+
+.store-download span {
+  display: grid;
+  text-align: left;
+}
+
+.store-download-header {
+  height: 40px;
+  gap: 7px;
+  padding: 0 13px;
+  border-radius: 12px;
+  font-size: 11px;
+}
+
+.store-download-header strong {
+  white-space: nowrap;
+}
+
+.store-download-hero {
+  min-height: 54px;
+  gap: 11px;
+  padding: 8px 20px;
+  border-radius: 15px;
+  box-shadow: 0 12px 28px rgba(5, 7, 10, .2);
+}
+
+.store-download-hero small {
+  margin-bottom: 2px;
+  color: rgba(255, 255, 255, .68);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: .09em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.store-download-hero strong {
+  white-space: nowrap;
+  font-size: 14px;
+  line-height: 1.15;
+}
+
 .hero {
   position: relative;
-  min-height: 820px;
-  padding: 155px 24px 72px;
+  min-height: 750px;
+  padding: 116px 24px 64px;
   background:
     radial-gradient(circle at 78% 36%, rgba(10, 143, 240, .12), transparent 34%),
     linear-gradient(180deg, var(--bg) 0%, var(--bg) 75%, var(--bg-soft) 100%);
@@ -224,7 +285,7 @@ button {
   position: relative;
   z-index: 2;
   width: min(1240px, 100%);
-  min-height: 565px;
+  min-height: 535px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: .92fr 1.08fr;
@@ -2157,6 +2218,10 @@ footer a:hover {
     grid-template-columns: 1fr auto;
   }
 
+  .store-download-header {
+    padding: 0 11px;
+  }
+
   .main-nav {
     display: none;
   }
@@ -2256,13 +2321,22 @@ footer a:hover {
     width: 126px;
   }
 
-  .header-cta {
+  .header-downloads {
+    margin-left: auto;
+  }
+
+  .store-download-header {
+    width: 40px;
+    padding: 0;
+  }
+
+  .store-download-header span {
     display: none;
   }
 
   .hero {
     min-height: auto;
-    padding: 125px 20px 82px;
+    padding: 100px 20px 72px;
   }
 
   .hero-grid {
@@ -2285,6 +2359,12 @@ footer a:hover {
 
   .hero-actions {
     display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .store-download-hero {
+    min-width: 0;
+    padding-inline: 12px;
   }
 
   .hero-proof {

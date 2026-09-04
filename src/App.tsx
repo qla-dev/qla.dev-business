@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import {
+  Apple,
   ArrowRight,
   BarChart3,
   Boxes,
@@ -16,6 +17,7 @@ import {
   Menu,
   Moon,
   Plane,
+  Play,
   ReceiptText,
   ScanLine,
   Search,
@@ -28,6 +30,47 @@ import {
 
 type Theme = 'light' | 'dark';
 type InfoPage = 'privacy' | 'terms' | 'cookies' | 'help';
+type StorePlatform = 'ios' | 'android';
+
+const APP_STORE_URL = 'https://apps.apple.com/us/app/putni-nalozi-ai-unos-tro%C5%A1ka/id6794137857';
+const GOOGLE_PLAY_URL = 'https://play.google.com/store/apps/details?id=radni.qla.dev';
+
+function detectHeaderStorePlatform(): StorePlatform | null {
+  if (typeof navigator === 'undefined' || typeof window === 'undefined') return null;
+
+  const userAgent = navigator.userAgent || '';
+  const platform = navigator.platform || '';
+  const userAgentDataMobile = Boolean((navigator as Navigator & { userAgentData?: { mobile?: boolean } }).userAgentData?.mobile);
+  const hasTouch = navigator.maxTouchPoints > 0 || window.matchMedia('(pointer: coarse)').matches;
+  const isIpadOS = platform === 'MacIntel' && navigator.maxTouchPoints > 1;
+
+  if (/Android/i.test(userAgent)) return 'android';
+  if (/iPhone|iPad|iPod/i.test(userAgent) || isIpadOS) return 'ios';
+  if (!hasTouch && !userAgentDataMobile) return null;
+
+  return null;
+}
+
+function StoreDownloadButton({ platform, variant }: { platform: StorePlatform; variant: 'header' | 'hero' }) {
+  const isIos = platform === 'ios';
+  const Icon = isIos ? Apple : Play;
+
+  return (
+    <a
+      className={`store-download store-download-${variant}`}
+      href={isIos ? APP_STORE_URL : GOOGLE_PLAY_URL}
+      target="_blank"
+      rel="noreferrer"
+      aria-label={isIos ? 'Preuzmi Putne naloge za iOS' : 'Preuzmi Putne naloge za Android'}
+    >
+      <Icon size={variant === 'header' ? 16 : 20} fill={isIos ? 'currentColor' : 'none'} />
+      <span>
+        {variant === 'hero' && <small>Preuzmi za</small>}
+        <strong>{isIos ? 'App Store' : 'Google Play'}</strong>
+      </span>
+    </a>
+  );
+}
 
 const INFO_PAGES: Record<InfoPage, { title: string; intro: string; sections: Array<[string, string]> }> = {
   privacy: {
@@ -480,6 +523,8 @@ function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activePhoneView, setActivePhoneView] = useState(0);
   const [activeShowcase, setActiveShowcase] = useState(0);
+  const headerStorePlatform = detectHeaderStorePlatform();
+  const headerStorePlatforms: StorePlatform[] = headerStorePlatform ? [headerStorePlatform] : ['ios', 'android'];
 
   useEffect(() => {
     const timer = window.setInterval(
@@ -535,7 +580,9 @@ function App() {
           >
             {theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
           </button>
-          <a className="header-cta" href="#kontakt">Zatraži pristup</a>
+          <div className="header-downloads">
+            {headerStorePlatforms.map(platform => <StoreDownloadButton key={platform} platform={platform} variant="header" />)}
+          </div>
           <button
             className="menu-toggle"
             type="button"
@@ -559,10 +606,8 @@ function App() {
                 Svaki modul rješava jedan posao odlično, a zajedno stvaraju povezanu cjelinu.
               </p>
               <div className="hero-actions">
-                <a className="button button-primary" href="#putni-nalozi">
-                  Upoznaj Putne naloge <ArrowRight size={17} />
-                </a>
-                <a className="button button-secondary" href="#ekosistem">Pogledaj ekosistem</a>
+                <StoreDownloadButton platform="ios" variant="hero" />
+                <StoreDownloadButton platform="android" variant="hero" />
               </div>
               <div className="hero-proof">
                 <span><Check size={14} /> Mobilno iskustvo</span>
